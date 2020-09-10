@@ -363,7 +363,7 @@ abstract class AbstractRector extends NodeVisitorAbstract implements PhpRectorIn
 
         // prevent spamming with the same class over and over
         // indented on purpose to improve log nesting under [refactoring]
-        $this->symfonyStyle->writeln('    [applying] ' . static::class);
+        $this->symfonyStyle->writeln('   [applying] ' . static::class);
         $this->previousAppliedClass = static::class;
     }
 
