@@ -15,10 +15,12 @@ use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\RectorDefinition\CodeSample;
+use Rector\Core\RectorDefinition\ConfiguredCodeSample;
 use Rector\Core\RectorDefinition\RectorDefinition;
 use Rector\Naming\Naming\PropertyNaming;
 use Rector\PHPStan\Type\FullyQualifiedObjectType;
 use Rector\RemovingStatic\StaticTypesInClassResolver;
+use Rector\RemovingStatic\Tests\Rector\Class_\PassFactoryToEntityRector\Source\TurnMeToService;
 
 /**
  * Depends on @see PassFactoryToUniqueObjectRector
@@ -72,7 +74,7 @@ final class NewUniqueObjectToEntityFactoryRector extends AbstractRector implemen
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition('Convert new X to new factories', [
-            new CodeSample(
+            new ConfiguredCodeSample(
                 <<<'PHP'
 <?php
 
@@ -115,6 +117,12 @@ class AnotherClass
     }
 }
 PHP
+                ,
+                [
+                    NewUniqueObjectToEntityFactoryRector::TYPES_TO_SERVICES => [
+                        'ClassName',
+                    ],
+                ]
             ), ]);
     }
 

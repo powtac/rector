@@ -10,6 +10,7 @@ use PhpParser\Node\Name;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\RectorDefinition\CodeSample;
+use Rector\Core\RectorDefinition\ConfiguredCodeSample;
 use Rector\Core\RectorDefinition\RectorDefinition;
 
 /**
@@ -30,7 +31,7 @@ final class RenameConstantRector extends AbstractRector implements ConfigurableR
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition('Replace constant by new ones', [
-            new CodeSample(
+            new ConfiguredCodeSample(
                 <<<'PHP'
 final class SomeClass
 {
@@ -50,6 +51,13 @@ final class SomeClass
     }
 }
 PHP
+                ,
+                [
+                    RenameConstantRector::OLD_TO_NEW_CONSTANTS => [
+                        'MYSQL_ASSOC' => 'MYSQLI_ASSOC',
+                        'OLD_CONSTANT' => 'NEW_CONSTANT',
+                    ],
+                ]
             ),
         ]);
     }
